@@ -62,6 +62,7 @@ return [
     'profile'                => 'Profiel',
     'public_url'             => 'Openbare URL',
     'read'                   => 'Lezen',
+    'remember_me'            => 'Onthoud mij',
     'rename'                 => 'Hernoemen',
     'required'               => 'Verplicht',
     'return_to_list'         => 'Terug naar de lijst',
