@@ -61,7 +61,8 @@ class VoyagerMenuController extends Controller
 
         // Save menu translations
         if ($_isTranslatable) {
-            $menuItem->setAttributeTranslations('title', $trans, true);
+            $menuItem->setAttributeTranslations('title', $trans['title'], true);
+            $menuItem->setAttributeTranslations('url', $trans['url'], true);
         }
 
         return redirect()
@@ -87,7 +88,8 @@ class VoyagerMenuController extends Controller
             $trans = $this->prepareMenuTranslations($data);
 
             // Save menu translations
-            $menuItem->setAttributeTranslations('title', $trans, true);
+            $menuItem->setAttributeTranslations('title', $trans['title'], true);
+            $menuItem->setAttributeTranslations('url', $trans['url'], true);
         }
 
         $menuItem->update($data);
@@ -149,12 +151,17 @@ class VoyagerMenuController extends Controller
      */
     protected function prepareMenuTranslations(&$data)
     {
-        $trans = json_decode($data['title_i18n'], true);
+        $trans = [
+            'title' => json_decode($data['title_i18n'], true),
+            'url' => json_decode($data['url_i18n'], true),
+        ];
 
         // Set field value with the default locale
-        $data['title'] = $trans[config('voyager.multilingual.default', 'en')];
+        $data['title'] = $trans['title'][config('voyager.multilingual.default', 'en')];
+        $data['url'] = $trans['url'][config('voyager.multilingual.default', 'en')];
 
         unset($data['title_i18n']);     // Remove hidden input holding translations
+        unset($data['url_i18n']);       // Remove hidden input holding translations
         unset($data['i18n_selector']);  // Remove language selector input radio
 
         return $trans;

@@ -115,6 +115,8 @@ class Menu extends Model
         $items = $items->transform(function ($item) {
             // Translate title
             $item->title = $item->getTranslatedAttribute('title');
+            // Translate url
+            $item->url = $item->getTranslatedAttribute('url');
             // Resolve URL/Route
             $item->href = $item->link(true);
 
