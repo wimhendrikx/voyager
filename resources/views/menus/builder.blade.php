@@ -85,6 +85,7 @@
                         </select><br>
                         <div id="m_url_type">
                             <label for="url">{{ __('voyager::menu_builder.url') }}</label>
+                            @include('voyager::multilingual.input-hidden', ['_field_name' => 'url', '_field_trans' => ''])
                             <input type="text" class="form-control" id="m_url" name="url" placeholder="{{ __('voyager::generic.url') }}"><br>
                         </div>
                         <div id="m_route_type">
@@ -165,6 +166,7 @@
                 $m_title_i18n  = $('#title_i18n'),
                 $m_url_type    = $('#m_url_type'),
                 $m_url         = $('#m_url'),
+                $m_url_i18n    = $('#url_i18n'),
                 $m_link_type   = $('#m_link_type'),
                 $m_route_type  = $('#m_route_type'),
                 $m_route       = $('#m_route'),
@@ -197,7 +199,8 @@
             $m_modal.on('show.bs.modal', function(e, data) {
                 var _adding      = e.relatedTarget.data ? false : true,
                     translatable = $m_modal.data('multilingual'),
-                    $_str_i18n   = '';
+                    $_title_i18n = '';
+                    $_url_i18n   = '';
 
                 if (_adding) {
                     $m_form.attr('action', $m_form.data('action-add'));
@@ -227,7 +230,8 @@
                     $m_id.val(id);
 
                     if(translatable){
-                        $_str_i18n = $("#title" + id + "_i18n").val();
+                        $_title_i18n = $("#title" + id + "_i18n").val();
+                        $_url_i18n = $("#url" + id + "_i18n").val();
                     }
 
                     if (_src.data('target') == '_self') {
@@ -254,7 +258,8 @@
                 }
 
                 if (translatable) {
-                    $m_title_i18n.val($_str_i18n);
+                    $m_title_i18n.val($_title_i18n);
+                    $m_url_i18n.val($_url_i18n);
                     translatable.refresh();
                 }
             });

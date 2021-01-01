@@ -24,6 +24,11 @@
             @if($options->isModelTranslatable)
                 @include('voyager::multilingual.input-hidden', [
                     'isModelTranslatable' => true,
+                    '_field_name'         => 'url'.$item->id,
+                    '_field_trans'        => json_encode($item->getTranslationsOf('url'))
+                ])
+                @include('voyager::multilingual.input-hidden', [
+                    'isModelTranslatable' => true,
                     '_field_name'         => 'title'.$item->id,
                     '_field_trans'        => json_encode($item->getTranslationsOf('title'))
                 ])

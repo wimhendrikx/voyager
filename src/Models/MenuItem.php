@@ -19,7 +19,7 @@ class MenuItem extends Model
 
     protected $guarded = [];
 
-    protected $translatable = ['title'];
+    protected $translatable = ['title', 'url'];
 
     public static function boot()
     {
@@ -71,6 +71,23 @@ class MenuItem extends Model
             $parameters = $parameters;
         } elseif (is_object($parameters)) {
             $parameters = json_decode(json_encode($parameters), true);
+        }
+
+        if (isset($parameters['bread'])) {
+            $dataTypeName = $parameters['bread']['data_type'];
+            $dataId = $parameters['bread']['id'];
+
+            $dataType = DataType::where('name', $dataTypeName)->firstOrFail();
+            $model = app($dataType->model_name);
+            $record = $model->where('id', $dataId)->where('status', '=', 'ACTIVE')->first();
+            if (!$record) {
+                return null;
+            }
+
+            $parameters['slug'] = $record->getTranslatedAttribute('slug');
+            $parameters['id'] = $record->id;
+
+            unset($parameters['bread']);
         }
 
         if (!is_null($route)) {
