@@ -95,6 +95,9 @@
                         <div class="panel-footer">
                             @section('submit-buttons')
                                 <button type="submit" class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
+                                <a href="{{ route('voyager.'.$dataType->slug.'.index') }}" class="btn btn-warning">
+                                    <i class="glyphicon glyphicon-list"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.return_to_list') }}</span>
+                                </a>
                             @stop
                             @yield('submit-buttons')
                         </div>
