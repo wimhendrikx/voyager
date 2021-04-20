@@ -368,11 +368,7 @@ class VoyagerBaseController extends Controller
 
         event(new BreadDataUpdated($dataType, $data));
 
-        if (auth()->user()->can('browse', app($dataType->model_name))) {
-            $redirect = redirect()->route("voyager.{$dataType->slug}.index");
-        } else {
-            $redirect = redirect()->back();
-        }
+        $redirect = redirect()->back();
 
         return $redirect->with([
             'message'    => __('voyager::generic.successfully_updated')." {$dataType->getTranslatedAttribute('display_name_singular')}",
