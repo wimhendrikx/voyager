@@ -330,6 +330,8 @@
                         "columnDefs" => [
                             ['targets' => 'dt-not-orderable', 'searchable' =>  false, 'orderable' => false],
                         ],
+                        "pageLength" => 25,
+                        "lengthMenu" => [ [25, 50, 100, -1], [25, 50, 100, "Alles"] ]
                     ],
                     config('voyager.dashboard.data_tables', []))
                 , true) !!});
